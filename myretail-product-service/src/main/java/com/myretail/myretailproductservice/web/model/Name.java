@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Price {
-    private String value;
-    private String currencyCode;
+public class Name {
+    private String id;
+    private String name;
 }
