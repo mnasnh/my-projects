@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "045ae10d-8f2a-4b9b-bad4-3a7ca5315439",
+		"name": "myretail",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-product-by-id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/myretail/api/products/15643793",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myretail",
+						"api",
+						"products",
+						"15643793"
+					]
+				},
+				"description": "Aggregate product price and name."
+			},
+			"response": []
+		},
+		{
+			"name": "update-product-price-by-id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer undefined",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"15643793\",\n    \"name\": \"Projector, DBPOWER RD-820 Mini Projector\",\n    \"price\": {\n        \"value\": \"71\",\n        \"currencyCode\": \"GBP\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/myretail/api/products/15643793",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myretail",
+						"api",
+						"products",
+						"15643793"
+					]
+				},
+				"description": "PUT request tp update product's current price by Id"
+			},
+			"response": []
+		}
+	]
+}

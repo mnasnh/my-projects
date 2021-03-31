@@ -1,0 +1,14 @@
+api:
+  price-by-id:
+    url: http://localhost:3000/currentprice/{id}
+  product-name-by-id:
+    url: http://localhost:3000/names/{id}
+info:
+  app:
+    version: 0.0.1
+server:
+  servlet:
+    context-path: /myretail
+
+
+
