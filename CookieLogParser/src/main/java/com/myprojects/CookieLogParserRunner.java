@@ -6,14 +6,22 @@ import org.apache.commons.cli.*;
 
 import java.util.List;
 
+
+/**
+ * Main runner class
+ */
 @Slf4j
 public class CookieLogParserRunner {
 
     public CookieLogParserRunner() {
     }
 
+    /**
+     * Entry point for the program. Takes command line arguments for file name and look up date.
+     * Prints most active cookie Ids in a separate line to the console.
+     * @param args
+     */
     public static void main(String[] args) {
-
         CommandLine cmd = getCommandLine(args);
         String inputFileName = cmd.getOptionValue("filename");
         String lookupDate = cmd.getOptionValue("date");
@@ -29,6 +37,11 @@ public class CookieLogParserRunner {
 
     }
 
+    /**
+     * Helper method to parse command line
+     * @param args
+     * @return cmd
+     */
     private static CommandLine getCommandLine(String[] args) {
         Options options = new Options();
         Option filename = new Option("f", "filename", true, "input file name");
