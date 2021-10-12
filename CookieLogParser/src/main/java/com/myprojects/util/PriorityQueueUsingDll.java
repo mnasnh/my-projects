@@ -73,10 +73,14 @@ public class PriorityQueueUsingDll {
          */
         Node prev = node.getPrevious();
         Node next = node.getNext();
-        if (prev == null) {
+        if(prev == null && next == null)
+        {
+            head = null;
+        }
+        else if (prev == null && next!=null) {
             next.setPrevious(null);
             head = next;
-        } else if (next == null) {
+        } else if (next == null && prev!=null) {
             prev.setNext(null);
         } else {
             prev.setNext(next);
