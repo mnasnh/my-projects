@@ -13,7 +13,7 @@ import java.util.Map;
 public class MostActiveCookieService {
 
     private  Map<String, PriorityQueueUsingDll> cookiesByDate;
-    private  Map<String, Node> cookieById;
+    private  Map<String, Integer> cookieById;
 
     public MostActiveCookieService()
     {
@@ -64,18 +64,17 @@ public class MostActiveCookieService {
             Node newNode = new Node(cookieId, 1);
             dll.push(newNode);
             cookiesByDate.put(date, dll);
-            cookieById.put(mapLookupKey, newNode);
+            cookieById.put(mapLookupKey, newNode.getCount());
         } else {
             dll = cookiesByDate.get(date);
             if (cookieById.containsKey(mapLookupKey)) {
-                Node existing = cookieById.get(mapLookupKey);
-                Node newNode = new Node(existing.getCookieId(), existing.getCount() + 1);
-                dll.removeNode(existing);
+                int existingCount = cookieById.get(mapLookupKey);
+                Node newNode = new Node(cookieId, existingCount + 1);
                 dll.push(newNode);
-                cookieById.put(mapLookupKey, newNode);
+                cookieById.put(mapLookupKey, existingCount+1);
             } else {
                 Node node = new Node(cookieId, 1);
-                cookieById.put(mapLookupKey, node);
+                cookieById.put(mapLookupKey, 1);
                 dll.push(node);
             }
         }
