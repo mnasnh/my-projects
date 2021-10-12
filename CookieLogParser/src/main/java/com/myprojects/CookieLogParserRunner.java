@@ -2,11 +2,10 @@ package com.myprojects;
 
 import com.myprojects.util.Node;
 import com.myprojects.util.PriorityQueueUsingDll;
+import org.apache.commons.cli.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,10 +20,12 @@ public class CookieLogParserRunner {
     }
 
     public void parseCookieLogs(String fileName, String lookupDate) {
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getSystemResourceAsStream(fileName);
+        InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         String line = "";
         String splitBy = ",";
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            BufferedReader br = new BufferedReader(streamReader);
             while ((line = br.readLine()) != null) {
                 String[] logs = line.split(splitBy);
                 String cookieId = logs[0];
@@ -84,8 +85,32 @@ public class CookieLogParserRunner {
     }
 
     public static void main(String[] args) {
-        String fileName = "/Users/manishasinha/IdeaProjects/github-projects/my-projects/CookieLogParser/src/main/resources/cookielog.csv";
-        String date = "2018-12-08";
-        new CookieLogParserRunner().parseCookieLogs(fileName, date);
+
+        CommandLine cmd = getCommandLine(args);
+        String inputFileName = cmd.getOptionValue("filename");
+        String lookupDate = cmd.getOptionValue("date");
+        new CookieLogParserRunner().parseCookieLogs(inputFileName, lookupDate);
+    }
+
+    private static CommandLine getCommandLine(String[] args) {
+        Options options = new Options();
+        Option filename = new Option("f", "filename", true, "input file name");
+        filename.setRequired(true);
+        options.addOption(filename);
+        Option date = new Option("d", "date", true, "date in UTC");
+        date.setRequired(true);
+        options.addOption(date);
+        CommandLineParser parser = new DefaultParser();
+        HelpFormatter formatter = new HelpFormatter();
+        CommandLine cmd = null;
+        try {
+            cmd = parser.parse(options, args);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+            formatter.printHelp("utility-name", options);
+
+            System.exit(1);
+        }
+        return cmd;
     }
 }
