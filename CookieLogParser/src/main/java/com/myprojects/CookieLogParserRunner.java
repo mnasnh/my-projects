@@ -1,9 +1,12 @@
 package com.myprojects;
 
+import com.myprojects.exception.LogParsingException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
 
 import java.util.List;
 
+@Slf4j
 public class CookieLogParserRunner {
 
     public CookieLogParserRunner() {
@@ -14,10 +17,16 @@ public class CookieLogParserRunner {
         CommandLine cmd = getCommandLine(args);
         String inputFileName = cmd.getOptionValue("filename");
         String lookupDate = cmd.getOptionValue("date");
-        List<String> activeCookies = new MostActiveCookieService().getMostActiveCookiesList(inputFileName, lookupDate);
-        for (String activeCookie : activeCookies) {
-            System.out.println(activeCookie);
+        List<String> activeCookies;
+        try {
+            activeCookies = new MostActiveCookieService().getMostActiveCookiesList(inputFileName, lookupDate);
+            for (String activeCookie : activeCookies) {
+                System.out.println(activeCookie);
+            }
+        } catch (LogParsingException e) {
+            log.error("Log Parsing Exception:", e);
         }
+
     }
 
     private static CommandLine getCommandLine(String[] args) {
@@ -34,9 +43,8 @@ public class CookieLogParserRunner {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
-            System.out.println(e.getMessage());
-            formatter.printHelp("utility-name", options);
-
+            log.error("Exception occurred while parsing command line", e);
+            formatter.printHelp("cookie-log-parser", options);
             System.exit(1);
         }
         return cmd;
