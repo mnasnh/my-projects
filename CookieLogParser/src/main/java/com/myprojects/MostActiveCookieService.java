@@ -1,7 +1,7 @@
 package com.myprojects;
 
 import com.myprojects.util.Node;
-import com.myprojects.util.PriorityQueueUsingDll;
+import com.myprojects.util.MaxFrequencyStack;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class MostActiveCookieService {
 
-    private  Map<String, PriorityQueueUsingDll> cookiesByDate;
+    private  Map<String, MaxFrequencyStack> cookiesByDate;
     private  Map<String, Integer> cookieById;
 
     public MostActiveCookieService()
@@ -57,10 +57,10 @@ public class MostActiveCookieService {
     private  void processLogs(String cookieId, String date) {
 
         StringBuilder mapLookupKeySb = new StringBuilder();
-        PriorityQueueUsingDll dll;
+        MaxFrequencyStack dll;
         String mapLookupKey = mapLookupKeySb.append(cookieId).append("|").append(date).toString();
         if (!cookiesByDate.containsKey(date)) {
-            dll = new PriorityQueueUsingDll();
+            dll = new MaxFrequencyStack();
             Node newNode = new Node(cookieId, 1);
             dll.push(newNode);
             cookiesByDate.put(date, dll);
@@ -81,8 +81,8 @@ public class MostActiveCookieService {
     }
 
     private  void addCookiesByMaxCount(String lookupDate, List<String> activeCookieList) {
-        PriorityQueueUsingDll dll = cookiesByDate.get(lookupDate);
-        PriorityQueueUsingDll dllTemp = dll;
+        MaxFrequencyStack dll = cookiesByDate.get(lookupDate);
+        MaxFrequencyStack dllTemp = dll;
         if (dllTemp != null) {
             Node dllTempHead = dllTemp.getHead();
             activeCookieList.add(dllTempHead.getCookieId());

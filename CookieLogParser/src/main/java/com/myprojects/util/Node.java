@@ -4,7 +4,6 @@ public class Node {
     private String cookieId;
     private int count;
     private Node next;
-    private Node previous;
 
     public Node(String cookieId, int count) {
         this.cookieId = cookieId;
@@ -13,7 +12,6 @@ public class Node {
     }
 
     public Node() {
-
     }
 
     public void setCookieId(String cookieId) {
@@ -27,11 +25,6 @@ public class Node {
     public void setNext(Node next) {
         this.next = next;
     }
-
-    public void setPrevious(Node previous) {
-        this.previous = previous;
-    }
-
     public String getCookieId() {
         return cookieId;
     }
@@ -44,7 +37,4 @@ public class Node {
         return next;
     }
 
-    public Node getPrevious() {
-        return previous;
-    }
 }

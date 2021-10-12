@@ -1,6 +1,6 @@
 package com.myprojects.util;
 
-public class PriorityQueueUsingDll {
+public class MaxFrequencyStack {
 
     public Node getHead() {
         return head;
@@ -21,7 +21,6 @@ public class PriorityQueueUsingDll {
             head = newNode;
         } else if (newNode.getCount() == head.getCount()) {
             newNode.setNext(head);
-            head.setPrevious(newNode);
             head = newNode;
         }
 
