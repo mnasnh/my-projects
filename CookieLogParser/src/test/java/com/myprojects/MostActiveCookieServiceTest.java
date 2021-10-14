@@ -42,8 +42,10 @@ public class MostActiveCookieServiceTest {
     }
     @Test
     public void shouldGetMostActiveCookiesList_Sample_4() throws LogParsingException {
+        String[] activeCookiesExpected = new String[]{"AtY0laUfhglK3lC7"};
         List<String> activeCookiesActual = new MostActiveCookieService().getMostActiveCookiesList("sample4.csv", "2018-12-09");
-        System.out.println("Active cookies:" + activeCookiesActual);
+        assertThat("List equality without order",
+                activeCookiesActual, containsInAnyOrder(activeCookiesExpected));
 
     }
 

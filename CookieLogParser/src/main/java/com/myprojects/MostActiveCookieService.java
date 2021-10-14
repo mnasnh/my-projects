@@ -84,25 +84,25 @@ public class MostActiveCookieService {
     private void processLogs(String cookieId, String date) {
 
         StringBuilder mapLookupKeySb = new StringBuilder();
-        MaxFrequencyStack dll;
+        MaxFrequencyStack stack;
         String mapLookupKey = mapLookupKeySb.append(cookieId).append("|").append(date).toString();
         if (!cookiesByDate.containsKey(date)) {
-            dll = new MaxFrequencyStack();
+            stack = new MaxFrequencyStack();
             Node newNode = new Node(cookieId, 1);
-            dll.push(newNode);
-            cookiesByDate.put(date, dll);
+            stack.push(newNode);
+            cookiesByDate.put(date, stack);
             cookieById.put(mapLookupKey, newNode.getCount());
         } else {
-            dll = cookiesByDate.get(date);
+            stack = cookiesByDate.get(date);
             if (cookieById.containsKey(mapLookupKey)) {
                 int existingCount = cookieById.get(mapLookupKey);
                 Node newNode = new Node(cookieId, existingCount + 1);
-                dll.push(newNode);
+                stack.push(newNode);
                 cookieById.put(mapLookupKey, existingCount + 1);
             } else {
                 Node node = new Node(cookieId, 1);
                 cookieById.put(mapLookupKey, 1);
-                dll.push(node);
+                stack.push(node);
             }
         }
     }

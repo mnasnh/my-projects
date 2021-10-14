@@ -32,3 +32,12 @@ We're looking for a concise, maintainable, extendable and correct solution. We'r
 ● knowledge of build systems, testing frameworks, etc.
 ● clean coding practices (meaningful names, clean abstractions, etc.)
 Please use a programming language you’re very comfortable with. The next stage of the interview will involve extending your code.
+
+### Solution
+#### Key Components
+1. CookieLogParserRunner class : The main entry point of the program. It parses the command line arguments to read the file name and lookup date and calls the MostActiveCookieService class to get the list of most active cookies seen for a date.
+2. MostActiveCookieService class: Processes every log file entry in the CSV and populates two hashmaps -> cookiesByDate that stores dates as key and reference to the head of a stack. The head of the stack maintains a node with maximum count seen so far along with cookie id. 
+   The other hash map cookieById maintains a mapping of key = cookieId+date and value as total count seen for the cookie for that date. 
+####  Run time
+Processing every log entry = O(N) + O(1) time for looking up the date map to get list of most active cookies + O(N) time to iterate over the most active cookie list and print them one by one on the console.
+Total run time = O(N)
